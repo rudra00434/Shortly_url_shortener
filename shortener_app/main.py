@@ -1,5 +1,6 @@
 from fastapi import Depends , FastAPI , HTTPException , status 
 from fastapi.responses import RedirectResponse
+from fastapi.middleware.cors import CORSMiddleware 
 from sqlalchemy.orm import Session
 from .import crud
 from .database import Base,engine,get_db
@@ -11,6 +12,13 @@ app = FastAPI(
     title = "URL shortener API",
     description = "A simple URL shortener API built with FastAPI and PostgreSQL",
     version = "1.0.0"
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 @app.get("/")
 def root():
