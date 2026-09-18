@@ -38,18 +38,24 @@ The API accepts a long URL, generates a unique short code, stores the URL mappin
 ## Project Structure
 
 ```text
-url_shortener/
+URL_Shortener/
 │
-├── shortener_app/
-│   ├── __init__.py
+├── frontend/              ← React frontend
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── ...
+│
+├── shortener_app/         ← FastAPI backend
+│   ├── main.py
+│   ├── crud.py
 │   ├── database.py
 │   ├── models.py
 │   ├── schemas.py
-│   ├── crud.py
-│   └── main.py
-|   └── rate_limiter.py
-|   └── redis_client.py
+│   ├── redis_client.py
+│   └── rate_limiter.py
 │
+├── screenshots/
 ├── .env.example
 ├── .gitignore
 ├── requirements.txt
