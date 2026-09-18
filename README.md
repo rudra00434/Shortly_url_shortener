@@ -21,6 +21,7 @@ The API accepts a long URL, generates a unique short code, stores the URL mappin
 
 | Technology      | Purpose                      |
 | --------------- | ---------------------------- |
+| React           |     Frontend                 |
 | Python          | Programming language         |
 | FastAPI         | REST API framework           |
 | PostgreSQL      | Relational database          |
