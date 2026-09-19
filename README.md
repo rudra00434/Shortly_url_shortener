@@ -32,8 +32,8 @@ The API accepts a long URL, generates a unique short code, stores the URL mappin
 | Redis           |  Browser Caching fast access |
 
 ## Demo UI/UX 
-<img width="1876" height="862" alt="Screenshot 2026-09-19 033201" src="https://github.com/user-attachments/assets/4e4ee9d8-4160-4464-a0ce-75967018f4b2" />
-<img width="1874" height="868" alt="Screenshot 2026-09-19 033220" src="https://github.com/user-attachments/assets/515a8a5a-0227-4450-a2f8-0220b739e23e" />
+<img width="1899" height="872" alt="image" src="https://github.com/user-attachments/assets/e1b7af60-dbfa-493d-8bb4-193888da40c5" />
+<img width="1901" height="825" alt="image" src="https://github.com/user-attachments/assets/db615c57-2a83-4258-8165-2c31335d6cb9" />
 <img width="1638" height="865" alt="image" src="https://github.com/user-attachments/assets/e8f23eac-6d81-44c0-bb24-785ffd972de2" />
 
 
