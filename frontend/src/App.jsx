@@ -24,7 +24,7 @@ function App() {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8000/shorten", {
+      const response = await fetch("https://shortly-s9y0.onrender.com/shorten", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ function App() {
 
       // Build complete shortened URL
       setShortUrl(
-        `http://localhost:8000/${data.shortened_url}`
+        `https://shortly-s9y0.onrender.com/${data.shortened_url}`
       );
     } catch (error) {
       console.error("URL shortening error:", error);
