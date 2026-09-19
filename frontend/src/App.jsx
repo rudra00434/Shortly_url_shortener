@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { QRCodeCanvas } from "qrcode.react";
 import "./App.css";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showQR, setShowQR] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,18 +23,22 @@ function App() {
     setError("");
     setCopied(false);
     setShortUrl("");
+    setShowQR(false);
     setLoading(true);
 
     try {
-      const response = await fetch("https://shortly-s9y0.onrender.com/shorten", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          original_url: url.trim(),
-        }),
-      });
+      const response = await fetch(
+        "https://shortly-s9y0.onrender.com/shorten",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            original_url: url.trim(),
+          }),
+        }
+      );
 
       // Handle API errors
       if (!response.ok) {
@@ -79,6 +85,20 @@ function App() {
       console.error("Copy failed:", error);
       setError("Unable to copy the shortened URL.");
     }
+  };
+
+  const handleDownloadQR = () => {
+    const canvas = document.getElementById("shortly-qr-code");
+
+    if (!canvas) return;
+
+    const pngUrl = canvas.toDataURL("image/png");
+
+    const downloadLink = document.createElement("a");
+    downloadLink.href = pngUrl;
+    downloadLink.download = "shortly-qr-code.png";
+
+    downloadLink.click();
   };
 
   return (
@@ -198,31 +218,71 @@ function App() {
 
           {/* Result */}
           {shortUrl && (
-            <div className="result-card">
+            <>
+              <div className="result-card">
 
-              <div>
-                <p className="result-label">
-                  Your shortened URL
-                </p>
+                <div>
+                  <p className="result-label">
+                    Your shortened URL
+                  </p>
 
-                <a
-                  href={shortUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="short-url"
-                >
-                  {shortUrl}
-                </a>
+                  <a
+                    href={shortUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="short-url"
+                  >
+                    {shortUrl}
+                  </a>
+                </div>
+
+                <div className="result-actions">
+                  <button
+                    type="button"
+                    className="copy-btn"
+                    onClick={handleCopy}
+                  >
+                    {copied ? "Copied!" : "Copy"}
+                  </button>
+
+                  <button
+                    type="button"
+                    className="copy-btn"
+                    onClick={() => setShowQR(!showQR)}
+                  >
+                    {showQR ? "Hide QR" : "QR Code"}
+                  </button>
+                </div>
               </div>
 
-              <button
-                type="button"
-                className="copy-btn"
-                onClick={handleCopy}
-              >
-                {copied ? "Copied!" : "Copy"}
-              </button>
-            </div>
+              {/* QR Code */}
+              {showQR && (
+                <div className="qr-card">
+
+                  <p className="result-label">
+                    Scan to open
+                  </p>
+
+                  <div className="qr-container">
+                    <QRCodeCanvas
+                      id="shortly-qr-code"
+                      value={shortUrl}
+                      size={220}
+                      level="H"
+                      includeMargin={true}
+                    />
+                  </div>
+
+                  <button
+                    type="button"
+                    className="copy-btn qr-download-btn"
+                    onClick={handleDownloadQR}
+                  >
+                    Download QR
+                  </button>
+                </div>
+              )}
+            </>
           )}
 
           {/* Privacy Message */}
